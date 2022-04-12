@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -96,7 +95,7 @@ func SearchRandom() string {
 	if err != nil {
 		log.Panic(err.Error())
 	}
-	resText, readErr := io.ReadAll(res.Body)
+	resText, readErr := ioutil.ReadAll(res.Body)
 	if readErr != nil {
 		log.Panic(err.Error())
 	}
