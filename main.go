@@ -6,10 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
 
 	botapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -25,15 +22,11 @@ func main() {
 	bot.Debug = true
 
 	u := botapi.NewUpdate(0)
-	u.Timeout = 60
+	u.Timeout = 45
 
 	updates := bot.GetUpdatesChan(u)
 	var meals MealStruct
 	var isSelect bool = false
-	port := os.Getenv("PORT")
-	router := gin.New()
-	router.Static("/static", "static")
-	router.Run(":" + port)
 	for update := range updates {
 		if update.Message != nil { // If we got a message
 			var meal Meal
