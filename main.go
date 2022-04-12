@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -29,7 +30,7 @@ func main() {
 	updates := bot.GetUpdatesChan(u)
 	var meals MealStruct
 	var isSelect bool = false
-	port := "8080" //os.Getenv("PORT")
+	port := os.Getenv("PORT")
 	router := gin.New()
 	router.Static("/static", "static")
 	router.Run(":" + port)
