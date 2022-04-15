@@ -29,6 +29,7 @@ func main() {
 	router.Use(gin.Logger())
 
 	router.GET("/get", get)
+	router.Run(":" + port)
 }
 func get(c *gin.Context) {
 	c.String(http.StatusOK, "ok")
