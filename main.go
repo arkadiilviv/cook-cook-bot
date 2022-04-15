@@ -6,14 +6,35 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
+	"github.com/gin-gonic/gin"
 	botapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 var apiUrl string = "https://www.themealdb.com/api/json/v1/1/"
 
 func main() {
+	go StartBot()
+	port := os.Getenv("PORT")
+
+	//port = "8080"
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	var router *gin.Engine = gin.Default()
+
+	router.Use(gin.Logger())
+
+	router.GET("/get", get)
+}
+func get(c *gin.Context) {
+	c.String(http.StatusOK, "ok")
+}
+
+func StartBot() {
 	bot, err := botapi.NewBotAPI("5124106193:AAHNyBpcg7OiBaDyUFm2jCB9zE7MrjYQlRE")
 	if err != nil {
 		log.Panic(err)
@@ -22,7 +43,7 @@ func main() {
 	bot.Debug = true
 
 	u := botapi.NewUpdate(0)
-	u.Timeout = 45
+	u.Timeout = 60
 
 	updates := bot.GetUpdatesChan(u)
 	var meals MealStruct
