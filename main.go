@@ -36,7 +36,7 @@ func get(c *gin.Context) {
 }
 
 func StartBot() {
-	bot, err := botapi.NewBotAPI("5124106193:AAHNyBpcg7OiBaDyUFm2jCB9zE7MrjYQlRE")
+	bot, err := botapi.NewBotAPI("{TOKEN}")
 	if err != nil {
 		log.Panic(err)
 	}
